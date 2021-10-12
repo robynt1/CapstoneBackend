@@ -5,20 +5,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/*
-    superpowers:
-    - ORM / JPA / Hibernate entity
- */
 @Entity
 public class Hobbit {
-    // superpowers: primary key
     @Id
-    // superpowers: how to generate the primary key on a DB
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String firstName;
     private String lastName;
+
+    public Hobbit() {
+    }
+
+    public Hobbit(Long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public Long getId() {
         return id;
