@@ -1,13 +1,13 @@
-package com.example.hobbitron;
+package com.example.capstone;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HobbitronApplication {
+public class CapstoneApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HobbitronApplication.class, args);
+        SpringApplication.run(CapstoneApplication.class, args);
     }
 
 }
