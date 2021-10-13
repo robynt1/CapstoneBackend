@@ -18,4 +18,8 @@ public class HobbitService {
     public List<Hobbit> getAll() {
         return hobbitRepository.findAll();
     }
+
+    public Hobbit save(Hobbit hobbit) {
+        return hobbitRepository.save(hobbit);
+    }
 }

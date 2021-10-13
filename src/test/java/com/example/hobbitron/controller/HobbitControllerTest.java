@@ -8,12 +8,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,6 +59,35 @@ class HobbitControllerTest {
 
         assertEquals(3, hobbitsFromDB.size());
 
+    }
+
+    @Test
+    @DirtiesContext
+    void givenFullSpringContextWithDbInitialized_whenPOSTHobbitsWithJSON_thenHTTP200AndHobbitWithId() throws Exception {
+        var firstName = "Gandalf";
+        var lastName = "the White";
+        var gandalf = new Hobbit(null, firstName,lastName);
+        var gandalfAsStirng = objectMapper.writeValueAsString(gandalf);
+
+        final var mvcResult = mockMvc
+                .perform(
+                        post("/hobbits")
+                        .content(gandalfAsStirng)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().is(200))
+                .andReturn();
+
+        final var hobbitFromDbAsJson = mvcResult.getResponse().getContentAsString();
+
+        Hobbit hobbitFromDB = objectMapper.readValue(hobbitFromDbAsJson, Hobbit.class);
+
+        assertAll(
+                () -> assertNotNull(hobbitFromDB.getId()),
+                () -> assertEquals(firstName, hobbitFromDB.getFirstName()),
+                () -> assertEquals(lastName, hobbitFromDB.getLastName())
+        );
     }
 
 }
