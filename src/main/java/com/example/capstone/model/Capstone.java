@@ -10,45 +10,36 @@ public class Capstone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String prefix;
     private String firstName;
     private String lastName;
-    private Long telephoneNumber;
-    private String addressLine1;
-    private String addressLine2;
+    private long telNumber;
+    private String address1;
+    private String address2;
     private String city;
-    private String postcode;
-    private String vehicleType;
+    private String postCode;
+    private String carType;
     private String engineSize;
     private String additionalDrivers;
-    private Boolean commercialPurpose;
-    private Boolean outsideRegisteredState;
-    private Long currentValue;
+    private String commercialPurposes;
+    private String outsideState;
     private String dateRegistered;
 
-
-
-    public Capstone() {
-    }
-
-    public Capstone(Long id, String prefix, String firstName, String lastName, Long telephoneNumber, String addressLine1, String addressLine2, String city, String postcode,
-                    String vehicleType, String engineSize, String additionalDrivers, Boolean commercialPurpose, Boolean outsideRegisteredState, Long currentValue, String dateRegistered) {
+    public Capstone(Long id, String prefix, String firstName, String lastName, long telNumber, String address1, String address2, String city, String postCode, String carType, String engineSize, String additionalDrivers, String commercialPurposes, String outsideState, String dateRegistered) {
         this.id = id;
         this.prefix = prefix;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.telephoneNumber = telephoneNumber;
-        this.addressLine1 = addressLine1;
-        this.addressLine2 = addressLine2;
+        this.telNumber = telNumber;
+        this.address1 = address1;
+        this.address2 = address2;
         this.city = city;
-        this.postcode = postcode;
-        this.vehicleType = vehicleType;
+        this.postCode = postCode;
+        this.carType = carType;
         this.engineSize = engineSize;
         this.additionalDrivers = additionalDrivers;
-        this.commercialPurpose = commercialPurpose;
-        this.outsideRegisteredState = outsideRegisteredState;
-        this.currentValue = currentValue;
+        this.commercialPurposes = commercialPurposes;
+        this.outsideState = outsideState;
         this.dateRegistered = dateRegistered;
     }
 
@@ -84,28 +75,28 @@ public class Capstone {
         this.lastName = lastName;
     }
 
-    public Long getTelephoneNumber() {
-        return telephoneNumber;
+    public long getTelNumber() {
+        return telNumber;
     }
 
-    public void setTelephoneNumber(Long telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
+    public void setTelNumber(long telNumber) {
+        this.telNumber = telNumber;
     }
 
-    public String getAddressLine1() {
-        return addressLine1;
+    public String getAddress1() {
+        return address1;
     }
 
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
+    public void setAddress1(String address1) {
+        this.address1 = address1;
     }
 
-    public String getAddressLine2() {
-        return addressLine2;
+    public String getAddress2() {
+        return address2;
     }
 
-    public void setAddressLine2(String addressLine2) {
-        this.addressLine2 = addressLine2;
+    public void setAddress2(String address2) {
+        this.address2 = address2;
     }
 
     public String getCity() {
@@ -116,20 +107,20 @@ public class Capstone {
         this.city = city;
     }
 
-    public String getPostcode() {
-        return postcode;
+    public String getPostCode() {
+        return postCode;
     }
 
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
     }
 
-    public String getVehicleType() {
-        return vehicleType;
+    public String getCarType() {
+        return carType;
     }
 
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
+    public void setCarType(String carType) {
+        this.carType = carType;
     }
 
     public String getEngineSize() {
@@ -148,28 +139,20 @@ public class Capstone {
         this.additionalDrivers = additionalDrivers;
     }
 
-    public Boolean getCommercialPurpose() {
-        return commercialPurpose;
+    public String getCommercialPurposes() {
+        return commercialPurposes;
     }
 
-    public void setCommercialPurpose(Boolean commercialPurpose) {
-        this.commercialPurpose = commercialPurpose;
+    public void setCommercialPurposes(String commercialPurposes) {
+        this.commercialPurposes = commercialPurposes;
     }
 
-    public Boolean getOutsideRegisteredState() {
-        return outsideRegisteredState;
+    public String getOutsideState() {
+        return outsideState;
     }
 
-    public void setOutsideRegisteredState(Boolean outsideRegisteredState) {
-        this.outsideRegisteredState = outsideRegisteredState;
-    }
-
-    public Long getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setCurrentValue(Long currentValue) {
-        this.currentValue = currentValue;
+    public void setOutsideState(String outsideState) {
+        this.outsideState = outsideState;
     }
 
     public String getDateRegistered() {
@@ -179,4 +162,8 @@ public class Capstone {
     public void setDateRegistered(String dateRegistered) {
         this.dateRegistered = dateRegistered;
     }
+
+    public Capstone() {
+    }
+
 }

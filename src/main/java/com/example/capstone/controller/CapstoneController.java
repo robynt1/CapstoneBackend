@@ -2,14 +2,14 @@ package com.example.capstone.controller;
 
 import com.example.capstone.model.Capstone;
 import com.example.capstone.service.CapstoneService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.Data;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 public class CapstoneController {
 
     private final CapstoneService service;
@@ -28,3 +28,4 @@ public class CapstoneController {
         return service.save(capstone);
     }
 }
+
