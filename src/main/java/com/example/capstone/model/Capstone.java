@@ -13,7 +13,7 @@ public class Capstone {
     private String prefix;
     private String firstName;
     private String lastName;
-    private long telNumber;
+    private String telNumber;
     private String address1;
     private String address2;
     private String city;
@@ -25,7 +25,7 @@ public class Capstone {
     private String outsideState;
     private String dateRegistered;
 
-    public Capstone(Long id, String prefix, String firstName, String lastName, long telNumber, String address1, String address2, String city, String postCode, String carType, String engineSize, String additionalDrivers, String commercialPurposes, String outsideState, String dateRegistered) {
+    public Capstone(Long id, String prefix, String firstName, String lastName, String telNumber, String address1, String address2, String city, String postCode, String carType, String engineSize, String additionalDrivers, String commercialPurposes, String outsideState, String dateRegistered) {
         this.id = id;
         this.prefix = prefix;
         this.firstName = firstName;
@@ -75,11 +75,11 @@ public class Capstone {
         this.lastName = lastName;
     }
 
-    public long getTelNumber() {
+    public String getTelNumber() {
         return telNumber;
     }
 
-    public void setTelNumber(long telNumber) {
+    public void setTelNumber(String telNumber) {
         this.telNumber = telNumber;
     }
 
