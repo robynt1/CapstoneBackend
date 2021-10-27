@@ -61,7 +61,8 @@ class CapstoneControllerTest {
         var commercialPurposes = "Yes";
         var outsideState = "Yes";
         var dateRegistered = "10-02-2021";
-        Capstone person = new Capstone(id, prefix, firstName, lastName,  telNumber, address1, address2, city, postCode, carType, engineSize, additionalDrivers, commercialPurposes, outsideState, dateRegistered);
+        var vehicleValue = "5000";
+        Capstone person = new Capstone(id, prefix, firstName, lastName,  telNumber, address1, address2, city, postCode, carType, engineSize, additionalDrivers, commercialPurposes, outsideState, dateRegistered, vehicleValue);
 
         final var personAsJSON = objectMapper.writeValueAsString(person);
 

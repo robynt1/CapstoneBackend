@@ -24,8 +24,9 @@ public class Capstone {
     private String commercialPurposes;
     private String outsideState;
     private String dateRegistered;
+    private String vehicleValue;
 
-    public Capstone(Long id, String prefix, String firstName, String lastName, String telNumber, String address1, String address2, String city, String postCode, String carType, String engineSize, String additionalDrivers, String commercialPurposes, String outsideState, String dateRegistered) {
+    public Capstone(Long id, String prefix, String firstName, String lastName, String telNumber, String address1, String address2, String city, String postCode, String carType, String engineSize, String additionalDrivers, String commercialPurposes, String outsideState, String dateRegistered, String vehicleValue) {
         this.id = id;
         this.prefix = prefix;
         this.firstName = firstName;
@@ -41,6 +42,7 @@ public class Capstone {
         this.commercialPurposes = commercialPurposes;
         this.outsideState = outsideState;
         this.dateRegistered = dateRegistered;
+        this.vehicleValue = vehicleValue;
     }
 
     public Long getId() {
@@ -161,6 +163,14 @@ public class Capstone {
 
     public void setDateRegistered(String dateRegistered) {
         this.dateRegistered = dateRegistered;
+    }
+
+    public String getVehicleValue() {
+        return vehicleValue;
+    }
+
+    public void setVehicleValue(String vehicleValue) {
+        this.vehicleValue = vehicleValue;
     }
 
     public Capstone() {
