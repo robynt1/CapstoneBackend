@@ -17,109 +17,126 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class CapstoneControllerTest {
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @Autowired
-//    private ObjectMapper objectMapper;
-//
-//    @Test
-//    @DisplayName("GET /capstone -> HTTP 200")
-//    void getAllGet200() throws Exception {
-//        mockMvc
-//                .perform(get("/capstone"))
-//                .andExpect(status().is(200));
-//    }
-//
-//    @Test
-//    void getNonExistingEndpoint404() throws Exception {
-//        mockMvc
-//                .perform(get("/nonexistinendpoint"))
-//                .andExpect(status().is(404));
-//    }
-//
-//    @Test
-//    void given3CapstonesInDB_whenGETCapstones_thenHTTP200AndListSize3() throws Exception {
-//        final var mvcResult = mockMvc
-//                .perform(get("/capstone"))
-//                .andDo(print())
-//                .andExpect(status().is(200))
-//                .andReturn();
-//
-//        // get JSON from the response
-//        final var capstoneFromDbInJSONFromat = mvcResult.getResponse().getContentAsString();
-//        // map JSON -> Java
-//        List<Capstone> capstoneFromDB = objectMapper.readValue(capstoneFromDbInJSONFromat, new TypeReference<>(){});
-//
-//        assertEquals(3, capstoneFromDB.size());
-//
-//    }
+
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+
+
+    @Test
+    void givenDBInitilizedWith1Record1_whenGETPeople_shouldReturn1Item() throws Exception {
+        final var mvcResult = mockMvc
+                .perform(get("/capstone"))
+                .andDo(print())
+                .andReturn();
+
+        final var contentAsString = mvcResult.getResponse().getContentAsString();
+
+        List<Capstone> peopleFromDB = objectMapper.readValue(contentAsString, new TypeReference<>(){});
+
+        assertEquals(1, peopleFromDB.size());
+    }
+
+    @Test
+    @DirtiesContext
+    void givenDBInitilizedWith3Records_whenPOSTPeople_shouldSaveAndReturn() throws Exception {
+        var firstName = "Robyn";
+        var lastName = "Thompson";
+        var id = 1L;
+        var prefix = "Miss";
+        var telNumber= "12345678910";
+        var address1 = "123";
+        var address2 = "Something Road";
+        var city = "Belfast";
+        var postCode = "BT123";
+        var carType = "Cabriolet";
+        var engineSize = "1000";
+        var additionalDrivers = "2";
+        var commercialPurposes = "Yes";
+        var outsideState = "Yes";
+        var dateRegistered = "10-02-2021";
+        Capstone person = new Capstone(id, prefix, firstName, lastName,  telNumber, address1, address2, city, postCode, carType, engineSize, additionalDrivers, commercialPurposes, outsideState, dateRegistered);
+
+        final var personAsJSON = objectMapper.writeValueAsString(person);
+
+        final var mvcResult = mockMvc
+                .perform(post("/capstone")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(personAsJSON)
+                )
+                .andDo(print())
+                .andReturn();
+
+        final var contentAsString = mvcResult.getResponse().getContentAsString();
+
+        Capstone savedPerson = objectMapper.readValue(contentAsString, Capstone.class);
+
+        assertAll(
+                () -> assertNotNull(savedPerson.getId()),
+                () -> assertEquals(firstName, savedPerson.getFirstName()),
+                () -> assertEquals(lastName, savedPerson.getLastName())
+        );
+    }
+
+    @Test
+    @DirtiesContext
+    void givenDBInitilizedWith3Records_whenDELETEPeopleWithExistingID_shouldReturn200() throws Exception {
+
+        var existingId= 1;
+
+        final var mvcResult = mockMvc
+                .perform(delete("/capstone/delete?id=" + existingId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
 //
 //    @Test
 //    @DirtiesContext
-//    void givenFullSpringContextWithDbInitialized_whenPOSTCapstonesWithJSON_thenHTTP200AndCapstoneWithId() throws Exception {
+//    void givenDBInitilizedWith3Records_whenPUTPeopleWithExistingID_shouldReturnUpdatedPerson() throws Exception {
+//        var firstName = "Robyn";
+//        var lastName = "Thompson";
+//        var existingId = 1L;
+//        var prefix = "Miss";
+//        var telNumber= "12345678910";
+//        var address1 = "123";
+//        var address2 = "Something Road";
+//        var city = "Belfast";
+//        var postCode = "BT123";
+//        var carType = "Cabriolet";
+//        var engineSize = "1000";
+//        var additionalDrivers = "2";
+//        var commercialPurposes = "Yes";
+//        var outsideState = "Yes";
+//        var dateRegistered = "10-02-2021";
 //
-//
-//        var prefix = "Mr";
-//        var firstName = "Adam";
-//        var lastName =  "Stewart";
-//        var telephoneNumber =  48321366L;
-//        var addressLine1 =  "addressLine1";
-//        var addressLine2 =  "addressLine2";
-//        var city    = "belfast";
-//        var postcode =  "bt3 17tt";
-//        var vehicleType =  "Hatchback";
-//        var engineSize =  "engineSize";
-//        var additionalDrivers =  "1";
-//        var commercialPurpose =  true;
-//        var outsideRegisteredState =  true;
-//        var currentValue =  10000L;
-//        var dateRegistered = "10/10/2021";
-//
-//
-//        var capstone = new Capstone(null, prefix,firstName,lastName,telephoneNumber,addressLine1,addressLine2,city,postcode,vehicleType, engineSize,additionalDrivers,commercialPurpose,outsideRegisteredState, currentValue,dateRegistered);
-//        var capstoneAsString = objectMapper.writeValueAsString(capstone);
+//        Capstone person = new Capstone(existingId, prefix, firstName, lastName,  telNumber, address1, address2, city, postCode, carType, engineSize, additionalDrivers, commercialPurposes, outsideState, dateRegistered);
+//        final var personAsJSON = objectMapper.writeValueAsString(person);
 //
 //        final var mvcResult = mockMvc
-//                .perform(
-//                        post("/capstone")
-//                        .content(capstoneAsString)
+//                .perform(put("/capstone/customerDetails?id=1&newTelephoneNumber=" + telNumber)
 //                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(personAsJSON)
 //                )
 //                .andDo(print())
-//                .andExpect(status().is(200))
+//                .andExpect(status().isOk())
 //                .andReturn();
 //
-//        final var capstoneFromDbAsJson = mvcResult.getResponse().getContentAsString();
-//
-//        Capstone capstoneFromDB = objectMapper.readValue(capstoneFromDbAsJson, Capstone.class);
+//        Capstone updatedPerson = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Capstone.class);
 //
 //        assertAll(
-//                () -> assertNotNull(capstoneFromDB.getId()),
-//                () -> assertEquals(firstName, capstoneFromDB.getFirstName()),
-//                () -> assertEquals(lastName, capstoneFromDB.getLastName()),
-//                () -> assertEquals(prefix, capstoneFromDB.getPrefix()),
-//                () -> assertEquals(telephoneNumber, capstoneFromDB.getTelephoneNumber()),
-//                () -> assertEquals(addressLine1, capstoneFromDB.getAddressLine1()),
-//                () -> assertEquals(addressLine2, capstoneFromDB.getAddressLine2()),
-//                () -> assertEquals(city, capstoneFromDB.getCity()),
-//                () -> assertEquals(postcode, capstoneFromDB.getPostcode()),
-//                () -> assertEquals(vehicleType, capstoneFromDB.getVehicleType()),
-//                () -> assertEquals(engineSize, capstoneFromDB.getEngineSize()),
-//                () -> assertEquals(additionalDrivers, capstoneFromDB.getAdditionalDrivers()),
-//                () -> assertEquals(commercialPurpose, capstoneFromDB.getCommercialPurpose()),
-//                () -> assertEquals(outsideRegisteredState, capstoneFromDB.getOutsideRegisteredState()),
-//                () -> assertEquals(currentValue, capstoneFromDB.getCurrentValue()),
-//                () -> assertEquals(dateRegistered, capstoneFromDB.getDateRegistered())
-//        );
+//
+//                () -> assertEquals(telNumber, updatedPerson.getTelNumber()));
+//
 //    }
-
 }
