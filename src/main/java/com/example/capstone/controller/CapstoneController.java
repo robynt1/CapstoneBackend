@@ -36,6 +36,7 @@ public class CapstoneController {
     void delete(@RequestParam("id") Long id){
         service.deleteCustomer(id);
     }
+
     @PutMapping("/capstone/customerDetails")
     void update(@RequestParam("id") Long id, @RequestParam("newTelephoneNumber") String newTelephoneNumber){
         service.updateCustomer(id, newTelephoneNumber);

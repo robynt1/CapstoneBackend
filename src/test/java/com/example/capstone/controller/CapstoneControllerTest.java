@@ -44,6 +44,11 @@ class CapstoneControllerTest {
     }
 
     @Test
+    void whenNoIdInDatabaseThrowException404() throws Exception {
+
+    }
+
+    @Test
     @DirtiesContext
     void givenDBInitilizedWith3Records_whenPOSTPeople_shouldSaveAndReturn() throws Exception {
         var firstName = "Robyn";
@@ -88,7 +93,6 @@ class CapstoneControllerTest {
     @Test
     @DirtiesContext
     void givenDBInitilizedWith3Records_whenDELETEPeopleWithExistingID_shouldReturn200() throws Exception {
-
         var existingId= 1;
 
         final var mvcResult = mockMvc
@@ -99,43 +103,5 @@ class CapstoneControllerTest {
                 .andExpect(status().isOk());
     }
 
-//
-//    @Test
-//    @DirtiesContext
-//    void givenDBInitilizedWith3Records_whenPUTPeopleWithExistingID_shouldReturnUpdatedPerson() throws Exception {
-//        var firstName = "Robyn";
-//        var lastName = "Thompson";
-//        var existingId = 1L;
-//        var prefix = "Miss";
-//        var telNumber= "12345678910";
-//        var address1 = "123";
-//        var address2 = "Something Road";
-//        var city = "Belfast";
-//        var postCode = "BT123";
-//        var carType = "Cabriolet";
-//        var engineSize = "1000";
-//        var additionalDrivers = "2";
-//        var commercialPurposes = "Yes";
-//        var outsideState = "Yes";
-//        var dateRegistered = "10-02-2021";
-//
-//        Capstone person = new Capstone(existingId, prefix, firstName, lastName,  telNumber, address1, address2, city, postCode, carType, engineSize, additionalDrivers, commercialPurposes, outsideState, dateRegistered);
-//        final var personAsJSON = objectMapper.writeValueAsString(person);
-//
-//        final var mvcResult = mockMvc
-//                .perform(put("/capstone/customerDetails?id=1&newTelephoneNumber=" + telNumber)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(personAsJSON)
-//                )
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andReturn();
-//
-//        Capstone updatedPerson = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Capstone.class);
-//
-//        assertAll(
-//
-//                () -> assertEquals(telNumber, updatedPerson.getTelNumber()));
-//
-//    }
+
 }

@@ -25,6 +25,8 @@ public class Capstone {
     private String outsideState;
     private String dateRegistered;
     private String vehicleValue;
+    private String quote;
+
 
     public Capstone(Long id, String prefix, String firstName, String lastName, String telNumber, String address1, String address2, String city, String postCode, String carType, String engineSize, String additionalDrivers, String commercialPurposes, String outsideState, String dateRegistered, String vehicleValue) {
         this.id = id;
@@ -43,6 +45,16 @@ public class Capstone {
         this.outsideState = outsideState;
         this.dateRegistered = dateRegistered;
         this.vehicleValue = vehicleValue;
+        this.quote = null;
+    }
+
+
+    public String getQuote() {
+        return quote;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 
     public Long getId() {

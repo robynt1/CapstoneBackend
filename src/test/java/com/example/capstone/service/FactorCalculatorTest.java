@@ -109,11 +109,11 @@ public class FactorCalculatorTest {
         var city = "Belfast";
         var postCode = "BT123";
         var carType = "Hatchback";
-        var engineSize = "2000";
-        var additionalDrivers = "1";
-        var commercialPurposes = "No";
+        var engineSize = "1600";
+        var additionalDrivers = "3";
+        var commercialPurposes = "Yes";
         var outsideState = "Yes";
-        var dateRegistered = "10-02-2021";
+        var dateRegistered = "11-05-1997";
         var vehicleValue = "5000";
         Capstone driver = new Capstone(id, prefix, firstName, lastName,  telNumber, address1,
                                         address2, city, postCode, carType, engineSize, additionalDrivers,
@@ -122,6 +122,6 @@ public class FactorCalculatorTest {
         FactorCalculator myCalculator = new FactorCalculator();
 
 
-        assertEquals(387.2, myCalculator.calculateInsurcanceQuote(driver), 0.1);
+        assertEquals(371.71, myCalculator.calculateInsurcanceQuote(driver), 0.1);
     }
 }

@@ -82,7 +82,7 @@ public class FactorCalculator {
     public double calculateCommercialUseFactor(String commercialUse){
         double commercialUseFactor = 0.0;
 
-        commercialUseFactor = (commercialUse == "Yes" ? 1.1 : 1.0);
+        commercialUseFactor = (commercialUse.equals("Yes") ? 1.1 : 1.0);
 
         return commercialUseFactor;
     }
@@ -90,19 +90,25 @@ public class FactorCalculator {
     public double calculateOutsideStateUseFactor(String outsideStateUse){
         double outsideStateUseFactor = 0.0;
 
-        outsideStateUseFactor = (outsideStateUse == "Yes" ? 1.1 : 1.0);
+        outsideStateUseFactor = (outsideStateUse.equals("Yes") ? 1.1 : 1.0);
 
         return outsideStateUseFactor;
     }
 
     public double calculateInsurcanceQuote(Capstone driver){
+
+        double q1 = calculateVehicleTypeFactor(driver.getCarType());
+        double q2 = calculateEngineSizeFactor(driver.getEngineSize());
+        double q3 = calculateAdditionalDriversFactor(driver.getAdditionalDrivers());
+        double q4 = calculateCommercialUseFactor(driver.getCommercialPurposes());
+        double q5 = calculateOutsideStateUseFactor(driver.getOutsideState());
+        double q6 = calculateVehicleValueFactor(driver.getVehicleValue());
+
+
         return 100 * (
-                    calculateVehicleTypeFactor(driver.getCarType()) *
-                    calculateEngineSizeFactor(driver.getEngineSize()) *
-                    calculateAdditionalDriversFactor(driver.getAdditionalDrivers()) *
-                    calculateCommercialUseFactor(driver.getCommercialPurposes()) *
-                    calculateOutsideStateUseFactor(driver.getOutsideState()) *
-                    calculateVehicleValueFactor(driver.getVehicleValue())
-                );
+
+                q1 * q2 * q3 * q4 * q5 * q6
+
+        );
     }
 }
