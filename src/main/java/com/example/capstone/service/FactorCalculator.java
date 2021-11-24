@@ -2,6 +2,8 @@ package com.example.capstone.service;
 
 import com.example.capstone.model.Capstone;
 
+import java.text.DecimalFormat;
+
 public class FactorCalculator {
 
     public double calculateVehicleTypeFactor(String vehicleType){
@@ -95,20 +97,18 @@ public class FactorCalculator {
         return outsideStateUseFactor;
     }
 
-    public double calculateInsurcanceQuote(Capstone driver){
-
-        double q1 = calculateVehicleTypeFactor(driver.getCarType());
-        double q2 = calculateEngineSizeFactor(driver.getEngineSize());
-        double q3 = calculateAdditionalDriversFactor(driver.getAdditionalDrivers());
-        double q4 = calculateCommercialUseFactor(driver.getCommercialPurposes());
-        double q5 = calculateOutsideStateUseFactor(driver.getOutsideState());
-        double q6 = calculateVehicleValueFactor(driver.getVehicleValue());
-
-
-        return 100 * (
-
-                q1 * q2 * q3 * q4 * q5 * q6
-
+    public String calculateInsurcanceQuote(Capstone driver){
+        double calculatedAmount = 100 * (
+                calculateVehicleTypeFactor(driver.getCarType()) *
+                        calculateEngineSizeFactor(driver.getEngineSize()) *
+                        calculateAdditionalDriversFactor(driver.getAdditionalDrivers()) *
+                        calculateCommercialUseFactor(driver.getCommercialPurposes()) *
+                        calculateOutsideStateUseFactor(driver.getOutsideState()) *
+                        calculateVehicleValueFactor(driver.getVehicleValue())
         );
+        DecimalFormat df = new DecimalFormat("###.00");
+        String calculatedAmountAsString = df.format(calculatedAmount);
+        return calculatedAmountAsString;
     }
 }
+

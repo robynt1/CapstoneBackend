@@ -42,7 +42,7 @@ public class CapstoneService {
 
     public Capstone save(Capstone capstone) {
         FactorCalculator fc = new FactorCalculator();
-        capstone.setQuote(Double.toString(fc.calculateInsurcanceQuote(capstone)));
+        capstone.setQuote((fc.calculateInsurcanceQuote(capstone)));
         return capstoneRepository.save(capstone);
     }
 }
